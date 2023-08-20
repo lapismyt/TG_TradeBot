@@ -134,13 +134,14 @@ def buy_or_sell(history, bal1, bal2):
         exit(1)
 
 if __name__ == "__main__":
-    bot.send_message(config["ADMIN"], f"Бот запущен.\n\nЦена покупки: {str(info['asks']['middle_price'])}.\nЦена продажи: {str(info['bids']['middle_price'])}.\n\nDOGE: {str(bal1)}\nRUR: {str(bal2)}")
     for i in range(int(config["REPEAT"])):
         info = get_info()
         save_info(info)
         bal1 = get_bal("doge")
         bal2 = get_bal("rur")
         history = get_history()
+        if i == 0:
+            bot.send_message(config["ADMIN"], f"Бот запущен.\n\nЦена покупки: {str(info['asks']['middle_price'])}.\nЦена продажи: {str(info['bids']['middle_price'])}.\n\nDOGE: {str(bal1)}\nRUR: {str(bal2)}")
         if len(history) >= 2:
             do = buy_or_sell(history, bal1, bal2)
             if do == 0:
