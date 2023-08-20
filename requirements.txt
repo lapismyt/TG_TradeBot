@@ -1,0 +1,4 @@
+git+https://github.com/kl09/yobit_api.git
+pyTelegramBotAPI
+cfscrape
+urllib3<2
