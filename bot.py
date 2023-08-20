@@ -133,28 +133,26 @@ def buy_or_sell(history, bal1, bal2):
         print("Algorithm not selected")
         exit(1)
 
-@bot.message_handler(commands=["start_demo"])
-def start_demo_cmd(message):
+if __name__ == "__main__":
     for i in range(int(config["REPEAT"])):
         info = get_info()
         save_info(info)
         bal1 = get_bal("doge")
         bal2 = get_bal("rur")
         history = get_history()
+        bot.send_message(config["ADMIN"], f"Бот запущен.\n\nЦена покупки: {str(info['asks']['middle_price'])}.\nЦена продажи: {str(info['bids']['middle_price'])}.\n\nDOGE: {str(bal1)}\nRUR: {str(bal2)}")
         if len(history) >= 2:
             do = buy_or_sell(history, bal1, bal2)
             if do == 0:
                 buy(info["asks"]["middle_price"])
                 bal1 = get_bal("doge")
                 bal2 = get_bal("rur")
-                bot.send_message(message.chat.id, f"Покупаю по {str(info['asks']['middle_price'])}.\n\nDOGE: {str(bal1)}\nRUR: {str(bal2)}")
+                bot.send_message(config["ADMIN"], f"Покупаю по {str(info['asks']['middle_price'])}.\n\nDOGE: {str(bal1)}\nRUR: {str(bal2)}")
             elif do == 1:
                 sell(info["bids"]["middle_price"])
                 bal1 = get_bal("doge")
                 bal2 = get_bal("rur")
-                bot.send_message(message.chat.id, f"Продаю по {str(info['asks']['middle_price'])}.\n\nDOGE: {str(bal1)}\nRUR: {str(bal2)}")
+                bot.send_message(config["ADMIN"], f"Продаю по {str(info['asks']['middle_price'])}.\n\nDOGE: {str(bal1)}\nRUR: {str(bal2)}")
             else:
-                bot.send_message(message.chat.id, f"Ничего не делаю.\n\nЦена покупки: {str(info['asks']['middle_price'])}.\nЦена продажи: {str(info['bids']['middle_price'])}.\n\nDOGE: {str(bal1)}\nRUR: {str(bal2)}")
+                bot.send_message(config["ADMIN"], f"Ничего не делаю.\n\nЦена покупки: {str(info['asks']['middle_price'])}.\nЦена продажи: {str(info['bids']['middle_price'])}.\n\nDOGE: {str(bal1)}\nRUR: {str(bal2)}")
         time.sleep(int(config["COOLDOWN"]))
-
-bot.infinity_polling()
