@@ -141,19 +141,31 @@ if __name__ == "__main__":
         bal2 = get_bal("rur")
         history = get_history()
         if i == 0:
-            bot.send_message(config["ADMIN"], f"Бот запущен.\n\nЦена покупки: {str(info['asks']['middle_price'])}.\nЦена продажи: {str(info['bids']['middle_price'])}.\n\nDOGE: {str(bal1)}\nRUR: {str(bal2)}")
+            bot.send_message(config["ADMIN"], f"Бот запущен.")
+        statistic = "Средняя цена:\n"
+        statistic += f"Покупка: {str(info['asks']['middle_price'])};\n"
+        statistic += f"Продажа: {str(info['bids']['middle_price'])}.\n\n"
+        statistic += f"Общая стоимость всех офферов:\n"
+        statistic += f"Покупка: {str(info['asks']['total_price'])};\n"
+        statistic += f"Продажа: {str(info['bids']['total_price'])}.\n\n"
+        statistic += f"Общее количество валюты всех офферов:\n"
+        statistic += f"Покупка: {str(info['asks']['total_count'])};\n"
+        statistic += f"Продажа: {str(info['bids']['total_count'])}."
         if len(history) >= 2:
             do = buy_or_sell(history, bal1, bal2)
             if do == 0:
                 buy(info["asks"]["middle_price"])
                 bal1 = get_bal("doge")
                 bal2 = get_bal("rur")
-                bot.send_message(config["ADMIN"], f"Покупаю по {str(info['asks']['middle_price'])}.\n\nDOGE: {str(bal1)}\nRUR: {str(bal2)}")
+                bal_info = f"Баланс (вселенной):\nDOGE: {str(bal1)}\nRUR: {str(bal2)}"
+                bot.send_message(config["ADMIN"], f"Покупаю по {str(info['asks']['middle_price'])}.\n\n{statisctic}\n\n{bal_info}")
             elif do == 1:
                 sell(info["bids"]["middle_price"])
                 bal1 = get_bal("doge")
                 bal2 = get_bal("rur")
-                bot.send_message(config["ADMIN"], f"Продаю по {str(info['asks']['middle_price'])}.\n\nDOGE: {str(bal1)}\nRUR: {str(bal2)}")
+                bal_info = f"DOGE: {str(bal1)}\nRUR: {str(bal2)}"
+                bot.send_message(config["ADMIN"], f"Продаю по {str(info['bids']['middle_price'])}.\n\n{statistic}\n\n{bal_info}")
             else:
-                bot.send_message(config["ADMIN"], f"Ничего не делаю.\n\nЦена покупки: {str(info['asks']['middle_price'])}.\nЦена продажи: {str(info['bids']['middle_price'])}.\n\nDOGE: {str(bal1)}\nRUR: {str(bal2)}")
+                bal_info = f"DOGE: {str(bal1)}\nRUR: {str(bal2)}"
+                bot.send_message(config["ADMIN"], f"Ничего не делаю.\n\n{statistic}\n\n{bal_info}")
         time.sleep(int(config["COOLDOWN"]))
