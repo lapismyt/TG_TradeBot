@@ -114,16 +114,16 @@ def buy_or_sell(history, bal1, bal2):
     algorithm = int(config["ALGORITHM"])
     threshold = int(config["THRESHOLD"])
     if algorithm == 0:
-        if (asks_total_price / 100 * (100 - threshold) > prev_asks_total_price) and (asks_total_price > bids_total_price):
+        if (asks_total_price / 100 * (100 - threshold) > prev_asks_total_price):
             return 0
-        elif (bids_total_price / 100 * (100 - threshold) > bids_total_price) and (bids_total_price > asks_total_price):
+        elif (bids_total_price / 100 * (100 - threshold) > bids_total_price):
             return 1
         else:
             return 2, 0
     elif alorithm == 1:
-        if (asks_total_count / 100 * (100 - threshold) > prev_asks_total_count) and (asks_total_count > bids_total_count):
+        if (asks_total_count / 100 * (100 - threshold) > prev_asks_total_count):
             return 0
-        elif (bids_total_count / 100 * (100 - threshold) > prev_bids_total_count) and (bids_total_count > asks_total_count):
+        elif (bids_total_count / 100 * (100 - threshold) > prev_bids_total_count):
             return 1
         else:
             return 2, 0
