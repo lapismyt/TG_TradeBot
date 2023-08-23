@@ -154,18 +154,18 @@ if __name__ == "__main__":
         if len(history) >= 2:
             do = buy_or_sell(history, bal1, bal2)
             if do == 0:
-                buy(info["asks"]["middle_price"])
+                #buy(info["asks"]["middle_price"])
                 bal1 = get_bal("doge")
                 bal2 = get_bal("rur")
                 bal_info = f"Баланс (вселенной):\nDOGE: {str(bal1)}\nRUR: {str(bal2)}"
-                bot.send_message(config["ADMIN"], f"Покупаю по {str(info['asks']['middle_price'])}.\n\n{statisctic}\n\n{bal_info}")
+                bot.send_message(config["ADMIN"], f"Покупай по {str(info['asks']['middle_price'])}.\n\n{statisctic}")
             elif do == 1:
-                sell(info["bids"]["middle_price"])
+                #sell(info["bids"]["middle_price"])
                 bal1 = get_bal("doge")
                 bal2 = get_bal("rur")
                 bal_info = f"DOGE: {str(bal1)}\nRUR: {str(bal2)}"
-                bot.send_message(config["ADMIN"], f"Продаю по {str(info['bids']['middle_price'])}.\n\n{statistic}\n\n{bal_info}")
+                bot.send_message(config["ADMIN"], f"Продавай по {str(info['bids']['middle_price'])}.\n\n{statistic}")
             else:
                 bal_info = f"DOGE: {str(bal1)}\nRUR: {str(bal2)}"
-                bot.send_message(config["ADMIN"], f"Ничего не делаю.\n\n{statistic}\n\n{bal_info}")
+                bot.send_message(config["ADMIN"], f"Ничего не делаем.\n\n{statistic}")
         time.sleep(int(config["COOLDOWN"]))
