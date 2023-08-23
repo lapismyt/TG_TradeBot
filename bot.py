@@ -120,7 +120,7 @@ def buy_or_sell(history, bal1, bal2):
             return 1
         else:
             return 2, 0
-    elif alorithm == 1:
+    elif algorithm == 1:
         if (asks_total_count / 100 * (100 - threshold) > prev_asks_total_count):
             return 0
         elif (bids_total_count / 100 * (100 - threshold) > prev_bids_total_count):
