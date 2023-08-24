@@ -158,7 +158,7 @@ if __name__ == "__main__":
                 bal1 = get_bal("doge")
                 bal2 = get_bal("rur")
                 bal_info = f"Баланс (вселенной):\nDOGE: {str(bal1)}\nRUR: {str(bal2)}"
-                bot.send_message(config["ADMIN"], f"Покупай по {str(info['asks']['middle_price'])}.\n\n{statisctic}")
+                bot.send_message(config["ADMIN"], f"Покупай по {str(info['asks']['middle_price'])}.\n\n{statistic}")
             elif do == 1:
                 #sell(info["bids"]["middle_price"])
                 bal1 = get_bal("doge")
