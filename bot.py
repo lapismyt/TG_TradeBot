@@ -5,6 +5,7 @@ import os
 import json
 
 config = {}
+state = 0
 
 with open("config.dat") as f:
     for line in f.read().split("\n"):
@@ -86,7 +87,7 @@ def sell(price, pair="doge_rur"):
     set_bal(wal1, bal1)
     set_bal(wal2, bal2)
 
-def buy_or_sell(history, bal1, bal2):
+def buy_or_sell_old(history, bal1, bal2):
     info = history[-1]
     prev_info = history[-2]
 
@@ -119,19 +120,31 @@ def buy_or_sell(history, bal1, bal2):
         elif (bids_total_price / 100 * (100 - threshold) > bids_total_price):
             return 1
         else:
-            return 2, 0
+            return 2
     elif algorithm == 1:
         if (asks_total_count / 100 * (100 - threshold) > prev_asks_total_count):
             return 0
         elif (bids_total_count / 100 * (100 - threshold) > prev_bids_total_count):
             return 1
         else:
-            return 2, 0
+            return 2
     elif algorithm == 2:
         pass
     else:
         print("Algorithm not selected")
         exit(1)
+
+def buy_or_sell(h, bal, bal2):
+    global state
+    do = buy_or_sell_old(h, bal1, bal2)
+    if do == 0 and state == 0:
+        state = 1
+        return 0
+    if do == 1 and state == 1:
+        state = 0
+        return 1
+    else:
+        return 2
 
 if __name__ == "__main__":
     for i in range(int(config["REPEAT"])):
