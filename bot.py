@@ -144,6 +144,9 @@ def buy_or_sell(h, bal, bal2):
         state = 0
         return 1
     else:
+        data = json.load(open("data.json"))
+        del data["history"]["doge_rur"]
+        json.dump(data, open("data.json", "w"))
         return 2
 
 if __name__ == "__main__":
